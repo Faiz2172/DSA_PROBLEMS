@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        string result = "";
+        int carry = 0;
+        int i = a.size() - 1;
+        int j = b.size() - 1;
+
+        while (i >= 0 || j >= 0 || carry) {
+            int bitA = i >= 0 ? a[i--] - '0' : 0; // Extract bit from a or use 0 if out of bounds
+            int bitB = j >= 0 ? b[j--] - '0' : 0; // Extract bit from b or use 0 if out of bounds
+            
+            // XOR both bits and the carry to get the sum
+            int sum = bitA ^ bitB ^ carry;
+            // Compute new carry
+            carry = (bitA & bitB) | (bitA & carry) | (bitB & carry);
+            
+            // Prepend sum to the result string
+            result = char(sum + '0') + result;
+        }
+
+        return result;
+    }
+};
